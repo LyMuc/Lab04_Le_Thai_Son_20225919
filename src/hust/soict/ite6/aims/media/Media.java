@@ -24,6 +24,12 @@ public abstract class Media {
 		return cost;
 	}
 	
-	
+	public boolean equals(Object obj) {
+		if(obj instanceof Media)
+		{
+			return this.title == ((Media) obj).title;
+		}
+		return(false);
+	}
 
 }
