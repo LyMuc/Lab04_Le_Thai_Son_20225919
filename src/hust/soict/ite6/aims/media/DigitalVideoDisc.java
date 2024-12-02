@@ -1,30 +1,8 @@
-package hust.soict.ite6.aims.disc;
+package hust.soict.ite6.aims.media;
 
-public class DigitalVideoDisc {
+public class DigitalVideoDisc extends Disc implements Playable {
 	
 	private static int nbDigitalVideoDiscs =0;
-	private String title;
-	private String category;
-	private String director;
-	private int length;
-	private float cost;
-	private int id;
-	
-	public String getTitle() {
-		return title;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public String getDirector() {
-		return director;
-	}
-	public int getLength() {
-		return length;
-	}
-	public float getCost() {
-		return cost;
-	}
 	public DigitalVideoDisc(String title) {
 		super();
 		this.title = title;
@@ -62,11 +40,10 @@ public class DigitalVideoDisc {
 		nbDigitalVideoDiscs++;
 		this.id=nbDigitalVideoDiscs;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public int getId() {
-		return id;
-	}
 	
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
+	}
+
 }
