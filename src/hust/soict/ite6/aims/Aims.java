@@ -1,6 +1,6 @@
 package hust.soict.ite6.aims;
 import hust.soict.ite6.aims.cart.Cart;
-import hust.soict.ite6.aims.disc.DigitalVideoDisc;
+import hust.soict.ite6.aims.media.DigitalVideoDisc;
 
 public class Aims {
 

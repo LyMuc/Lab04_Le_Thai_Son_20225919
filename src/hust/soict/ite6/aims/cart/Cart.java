@@ -1,40 +1,74 @@
 package hust.soict.ite6.aims.cart;
-import hust.soict.ite6.aims.disc.DigitalVideoDisc;
+import java.util.ArrayList;
+import java.util.List;
+
+import hust.soict.ite6.aims.media.DigitalVideoDisc;
+import hust.soict.ite6.aims.media.Media;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED =20;
 	public static final String strCartBillUpper = "***********************CART***********************";
 	public static final String strCartBillBottom = "***************************************************";
-	private DigitalVideoDisc itemsOrdered[] = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
-	private int qtyOrdered;
+	private List<Media> itemsOrdered = new ArrayList<Media>();
 	
-	public int addDigitalVideoDisc(DigitalVideoDisc disc) {
-	    if (this.qtyOrdered == 20) {
-	        System.out.println("The cart is full");
-	        return -1;
-	    }
-	    
-	    for (int index = 0; index < this.qtyOrdered; index++) {
-	        if (itemsOrdered[index].getTitle().equals(disc.getTitle())) {
-	        	System.out.println("The disc " + disc.getTitle() + " has been added already");
-	            return -1;
+	public int addMedia(Media... discs)
+	{
+		int totalAdded = 0; // Biến để đếm số lượng DVD đã thêm thành công
+	    for (Media disc : discs) {
+	        if (itemsOrdered.size() == 20) {
+	            System.out.println("The cart is full");
+	            break;
+	        }
+	        
+	        // Kiểm tra trùng lặp DVD
+	        boolean isDuplicate = false;
+	        for (int index = 0; index < itemsOrdered.size(); index++) {
+	            if (itemsOrdered.get(index).getTitle().equals(disc.getTitle())) {
+	                System.out.println("The disc " + disc.getTitle() + " has been added already");
+	                isDuplicate = true;
+	                break;
+	            }
+	        }
+	        
+	        if (!isDuplicate) {
+	            itemsOrdered.add(disc);
+	            totalAdded += 1;
 	        }
 	    }
 	    
-	    itemsOrdered[this.qtyOrdered] = disc;
-	    this.qtyOrdered += 1;
-	    return 1;
+	    return totalAdded > 0 ? totalAdded : -1; // Trả về số lượng DVD đã thêm hoặc -1 nếu không có DVD nào được thêm
 	}
 	
-	public int addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2)
+	public int removeMedia(Media... discs)
 	{
-		int totalAdded=0;
-		
-		totalAdded+=addDigitalVideoDisc(dvd1) ==1 ?1:0;
-		totalAdded+=addDigitalVideoDisc(dvd2)==1?1:0;
-		
-		return(totalAdded);
+		int totalRemoved = 0; // Biến để đếm số lượng DVD đã thêm thành công
+	    for (Media disc : discs) {
+	        if (itemsOrdered.size() == 0) {
+	            System.out.println("The cart is empty");
+	            break;
+	        }
+	        
+	        // Kiểm tra trùng lặp DVD
+	        boolean isDuplicate = false;
+	        for (int index = 0; index < itemsOrdered.size(); index++) {
+	            if (itemsOrdered.get(index).getTitle().equals(disc.getTitle())) {
+	                //System.out.println("The disc " + disc.getTitle() + " has been added already");
+	                isDuplicate = true;
+	                break;
+	            }
+	            else System.out.println("The disc " + disc.getTitle() + " is not in the list");
+	        }
+	        
+	        if (isDuplicate) {
+	            itemsOrdered.remove(disc);
+	            totalRemoved += 1;
+	        }
+	    }
+	    
+	    return totalRemoved > 0 ? totalRemoved : -1; // Trả về số lượng DVD đã thêm hoặc -1 nếu không có DVD nào được thêm
 	}
+	
+	
 
 	/*public int addDigitalVideoDisc(DigitalVideoDisc [] dvdList)
 	{	
@@ -59,7 +93,7 @@ public class Cart {
 		return(1);
 	}*/
 	
-	public int addDigitalVideoDisc(DigitalVideoDisc... discs) {
+	/*public int addDigitalVideoDisc(DigitalVideoDisc... discs) {
 	    int totalAdded = 0; // Biến để đếm số lượng DVD đã thêm thành công
 	    for (DigitalVideoDisc disc : discs) {
 	        if (this.qtyOrdered == 20) {
@@ -85,41 +119,16 @@ public class Cart {
 	    }
 	    
 	    return totalAdded > 0 ? totalAdded : -1; // Trả về số lượng DVD đã thêm hoặc -1 nếu không có DVD nào được thêm
-	}
+	}*/
 
 	
-	
-	public int removeDigitalVideoDisc(DigitalVideoDisc disc)
-	{
-		if(this.qtyOrdered==0)
-		{
-			System.out.println("The cart is empty");
-			return(0);
-		}
-		int index;
-		for(index=0;index < this.qtyOrdered; index++)
-		{
-			if(itemsOrdered[index].getTitle().equals(disc.getTitle())) break;
-		}
-		if (index==qtyOrdered-1) 
-		{
-			System.out.println("The disc is not in the cart");
-			return(0);
-		}
-		for(int j=index; j<this.qtyOrdered-1; j++)
-		{
-			itemsOrdered[j]=itemsOrdered[j+1];
-		}
-		this.qtyOrdered-=1;
-		return(1);
-	}
 	
 	public float totalCost()
 	{
 		float cost=0;
-		for(int i=0; i<this.qtyOrdered; i++)
+		for(int i=0; i<itemsOrdered.size(); i++)
 		{
-			cost+=itemsOrdered[i].getCost();
+			cost+=itemsOrdered.get(i).getCost();
 		}
 		return(cost);
 	}
