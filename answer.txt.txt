@@ -1,0 +1,54 @@
+1. Class nào cần implement Comparable? Các lớp con của Media như DigitalVideoDisc, CompactDisc và Book.
+2. Implement Comparable:
+
+public class Media implements Comparable<Media> {
+    // Các thuộc tính của Media: title, cost, v.v.
+    
+    @Override
+    public int compareTo(Media other) {
+        // So sánh theo tiêu đề trước
+        int titleCompare = this.title.compareTo(other.title);
+        if (titleCompare != 0) {
+            return titleCompare; // Nếu tiêu đề khác nhau, trả về kết quả so sánh tiêu đề
+        }
+        // Nếu tiêu đề giống nhau, so sánh theo chi phí
+        return Float.compare(this.cost, other.cost); // So sánh theo chi phí
+    }
+}
+
+3. Không thể có 2 cách so sánh như vậy, vì chúng ta đã ghi đè compareTo và không thể có hai quy tắc sắp xếp khác nhau trong compareTo();
+4. Implement mẫu:
+public class DigitalVideoDisc extends Media {
+    private float length; // Độ dài của DVD
+    
+    public DigitalVideoDisc(String title, String category, float cost, float length) {
+        super(title, category, cost);
+        this.length = length;
+    }
+
+    @Override
+    public int compareTo(Media other) {
+        // Nếu đối tượng là DigitalVideoDisc, so sánh theo tiêu đề, rồi đến độ dài giảm dần, rồi đến chi phí
+        if (other instanceof DigitalVideoDisc) {
+            DigitalVideoDisc dvd = (DigitalVideoDisc) other;
+            
+            // So sánh theo tiêu đề
+            int titleCompare = this.title.compareTo(dvd.title);
+            if (titleCompare != 0) {
+                return titleCompare;
+            }
+            
+            // Nếu tiêu đề giống nhau, so sánh theo độ dài (giảm dần)
+            int lengthCompare = Float.compare(dvd.length, this.length); // Độ dài giảm dần
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+            
+            // Nếu độ dài giống nhau, so sánh theo chi phí
+            return Float.compare(this.cost, dvd.cost);
+        }
+        
+        // Nếu không phải DigitalVideoDisc, gọi phương thức compareTo của Media
+        return super.compareTo(other);
+    }
+}

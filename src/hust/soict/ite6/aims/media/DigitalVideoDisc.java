@@ -3,40 +3,10 @@ package hust.soict.ite6.aims.media;
 public class DigitalVideoDisc extends Disc implements Playable {
 	
 	private static int nbDigitalVideoDiscs =0;
-	public DigitalVideoDisc(String title) {
-		super();
-		this.title = title;
-		
-		nbDigitalVideoDiscs++;
-		this.id=nbDigitalVideoDiscs;
-	}
-	public DigitalVideoDisc(String title, String category, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.cost = cost;
-		
-		nbDigitalVideoDiscs++;
-		this.id=nbDigitalVideoDiscs;
-	}
-	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.director = director;
-		this.length = length;
-		this.cost = cost;
-		
-		nbDigitalVideoDiscs++;
-		this.id=nbDigitalVideoDiscs;
-	}
-	public DigitalVideoDisc(String title, String category, String director, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.director = director;
-		this.cost = cost;
-		
+	public static final String notifySearchDVDs = "DVDs: ";
+	
+	public DigitalVideoDisc(String title, String category, String directory, int length, float cost) {
+		super(title, category, directory, length, cost);
 		nbDigitalVideoDiscs++;
 		this.id=nbDigitalVideoDiscs;
 	}
@@ -44,6 +14,19 @@ public class DigitalVideoDisc extends Disc implements Playable {
 	public void play() {
 		System.out.println("Playing DVD: " + this.getTitle());
 		System.out.println("DVD length: " + this.getLength());
+	}
+	
+	public String toString()
+	{
+		StringBuilder dvdContentString = new StringBuilder(notifySearchDVDs);
+	    dvdContentString.append(String.valueOf(id))
+	            .append(". Title: ").append(this.getTitle())
+	            .append(" Category: ").append(this.getCategory())
+	            .append(" Director: ").append(this.getDirector())
+	            .append(" Length: ").append(this.getLength())
+	            .append(" Cost: ").append(this.getCost());
+
+	    return dvdContentString.toString();
 	}
 
 }

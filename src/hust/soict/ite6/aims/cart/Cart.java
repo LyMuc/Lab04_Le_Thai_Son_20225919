@@ -133,7 +133,9 @@ public class Cart {
 		return(cost);
 	}
 	
-	public void printCart()
+	
+	
+	/*public void printCart()
 	{
 		System.out.println(strCartBillUpper);
 		for(int i=0; i<qtyOrdered; i++)
@@ -150,35 +152,36 @@ public class Cart {
 		System.out.println(". DVD - " + itemsOrdered[i].getTitle() + " - " + itemsOrdered[i].getDirector() + " - "
 					+ toString(itemsOrdered[i].getLength()) + ": " + toString(itemsOrdered[i].getCost()) );
 	}
-	
-	public boolean isMatch(String title)
+	*/
+	/*public Media isMatch(String title)
 	{
 		String[] strWords = title.split("[\\s,;.!]+");
 		int nbMatch=0;
 		
 		for(String word: strWords)
 		{
-			for(int i=0; i<qtyOrdered; i++)
+			for(int i=0; i<itemsOrdered.size(); i++)
 			{
-				String[] strTitleWords = itemsOrdered[i].getTitle().split("[\\s,;.!]+");
+				String[] strTitleWords = itemsOrdered.get(i).getTitle().split("[\\s,;.!]+");
 				for(String titleWord : strTitleWords)
 				{
 					if (titleWord.equals(word)) {
 						nbMatch++;
-						System.out.print(nbMatch);
-						printInfoDVD(i);
+						//System.out.print(nbMatch);
+						//printInfoDVD(i);
+						return(itemsOrdered.get(i));
 					}
 				}
 			}
 		}
 		if(nbMatch==0) {
-			System.out.println("Disc not found in the cart");
+			System.out.println("Media not found in the cart");
 			return(false);
 		}
 		return(true);
-	}
+	}*/
 	
-	public boolean isMatch(int id)
+	/*public boolean isMatch(int id)
 	{
 		int nbMatch=0;
 		for(int i=0; i<qtyOrdered; i++)
@@ -195,9 +198,9 @@ public class Cart {
 			return(false);
 		}
 		return(true);
-	}
+	}*/
 	
-	public String toString(int cartBill)
+	/*public String toString(int cartBill)
 	{
 		String cartContent = String.valueOf(cartBill);
 		return (cartContent);
@@ -207,5 +210,6 @@ public class Cart {
 	{
 		String cartContent = String.valueOf(cost);
 		return (cartContent);
-	}
+	}*/
+	
 }
