@@ -20,14 +20,6 @@ public class Track implements Playable{
 		this.title = title;
 		this.length = length;
 	}
-	public Track(String title) {
-		super();
-		this.title = title;
-	}
-	public Track(int length) {
-		super();
-		this.length = length;
-	}
 	
 	public void play() {
 		System.out.println("Playing DVD: " + this.getTitle());
